@@ -4,7 +4,9 @@ import { App } from './App'
 
 const RootApp: React.FC = () => {
     return (
-        <App />
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>
     );
 };
 
