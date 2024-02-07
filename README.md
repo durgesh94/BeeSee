@@ -1,22 +1,21 @@
 # BeeSee
 
-1. Local run app
+### Locally run application
 ```sh
  npm start
  ```
 
-2. Deploy on gitHub Pages
-- Create build
+### Deploy on gitHub Pages
+ Create build
 ```sh
 npm run predeploy
  ```
-- Deploy build on gitHub
+ Deploy build on gitHub
 ```sh
 npm run deploy
  ```
+ Click to see [Live BeeSee](http://durgesh94.github.io/BeeSee/)
 
-- Click to see [Live BeeSee](http://durgesh94.github.io/BeeSee/)
-
-3. Web app using
-- ReactJS
-- Typescript
+### Web app using
+1. ReactJS
+2. Typescript
