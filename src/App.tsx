@@ -1,11 +1,12 @@
 import React from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Routes } from './routes';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from "./styles/customTheme";
 
 export const App: React.FC = () => {
   return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", alignSelf: "center" }}>
-      <CircularProgress />
-      <span style={{ marginLeft: 24 }}>Coming Soon!</span>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Routes />
+    </ThemeProvider>
   );
 };
