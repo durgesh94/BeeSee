@@ -1,30 +1,85 @@
-// DrawerComponent.js
-import React, { useState } from 'react';
-import { Drawer, List, ListItem, ListItemText } from '@mui/material';
+import React from 'react';
+import {
+    Drawer, Box, List, ListItem, ListItemText,
+    Toolbar, Divider, ListItemButton, ListItemIcon
+} from '@mui/material';
+import { Link } from 'react-router-dom';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import InfoIcon from '@mui/icons-material/Info';
+interface DrawerProps {
+    setIsClosing: any;
+    setMobileOpen: any;
+    mobileOpen: any;
+    drawerWidth: any;
+}
+export const AppDrawer = ({ setIsClosing, setMobileOpen, mobileOpen, drawerWidth }: DrawerProps) => {
 
-export const LeftDrawer = () => {
-    const [open, setOpen] = useState(false);
-
-    const toggleDrawer = (isOpen: boolean) => () => {
-        setOpen(isOpen);
+    const handleDrawerTransitionEnd = () => {
+        setIsClosing(false);
     };
 
+    const handleDrawerClose = () => {
+        setIsClosing(true);
+        setMobileOpen(false);
+    };
+
+    const drawer = (
+        <div>
+            <Toolbar />
+            <Divider />
+            <List>
+                <ListItem disablePadding component={Link} to="/">
+                    <ListItemButton>
+                        <ListItemIcon>
+                            <DashboardIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Dashboard" />
+                    </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding component={Link} to="/about">
+                    <ListItemButton>
+                        <ListItemIcon>
+                            <InfoIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="About" />
+                    </ListItemButton>
+                </ListItem>
+            </List>
+        </div>
+    );
+
     return (
-        <>
-            <button onClick={toggleDrawer(true)}>Open Drawer</button>
-            <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
-                <List>
-                    <ListItem button onClick={toggleDrawer(false)}>
-                        <ListItemText primary="Item 1" />
-                    </ListItem>
-                    <ListItem button onClick={toggleDrawer(false)}>
-                        <ListItemText primary="Item 2" />
-                    </ListItem>
-                    <ListItem button onClick={toggleDrawer(false)}>
-                        <ListItemText primary="Item 3" />
-                    </ListItem>
-                </List>
+        <Box
+            component="nav"
+            sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+            aria-label="mailbox folders"
+        >
+            {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+            <Drawer
+                variant="temporary"
+                open={mobileOpen}
+                onTransitionEnd={handleDrawerTransitionEnd}
+                onClose={handleDrawerClose}
+                ModalProps={{
+                    keepMounted: true, // Better open performance on mobile.
+                }}
+                sx={{
+                    display: { xs: 'block', sm: 'none' },
+                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                }}
+            >
+                {drawer}
             </Drawer>
-        </>
+            <Drawer
+                variant="permanent"
+                sx={{
+                    display: { xs: 'none', sm: 'block' },
+                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                }}
+                open
+            >
+                {drawer}
+            </Drawer>
+        </Box>
     );
 };
